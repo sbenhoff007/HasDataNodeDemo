@@ -1,5 +1,6 @@
 // Simple HasData Google SERP Light demo
 // Requires Node 18+ (for built-in fetch)
+// Get the API key from the environment variable
 
 const API_KEY = process.env.HASDATA_API_KEY;
 
