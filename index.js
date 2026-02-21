@@ -9,21 +9,32 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-// Read search term from command line
-// Example: node index.js "coffee beans"
+// Read arguments from command line
+// Example:
+// node index.js "coffee beans"
+// node index.js "coffee beans" "Austin,Texas,United States"
+
 const query = process.argv[2];
+const location = process.argv[3]; // ✅ new optional parameter
 
 if (!query) {
-  console.log('Usage: node index.js "search term"');
+  console.log('Usage: node index.js "search term" ["location"]');
   process.exit(1);
 }
 
 const BASE_URL = "https://api.hasdata.com/scrape/google-light/serp";
 
 async function run() {
+
+  // Build query parameters
   const params = new URLSearchParams({
     q: query
   });
+
+  // ✅ Add location only if provided
+  if (location) {
+    params.append("location", location);
+  }
 
   const response = await fetch(`${BASE_URL}?${params.toString()}`, {
     headers: {
